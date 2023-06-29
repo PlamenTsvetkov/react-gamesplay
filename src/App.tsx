@@ -8,6 +8,7 @@ import { User } from 'firebase/auth';
 import isAuth from './hoc/isAuth';
 import Logout from './components/Logout/Logout';
 import Register from './components/Register/Register';
+import AllGames from './components/AllGames/AllGames';
 
 import './App.css';
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" Component={isAuth(Logout)} />
         <Route path="/register" Component={Register} />
+        <Route path="/all-games" Component={isAuth(AllGames)} />
       </Routes>
 
       </AuthContext.Provider>
