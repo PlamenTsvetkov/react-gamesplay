@@ -9,6 +9,7 @@ import isAuth from './hoc/isAuth';
 import Logout from './components/Logout/Logout';
 import Register from './components/Register/Register';
 import AllGames from './components/AllGames/AllGames';
+import Home from './components/Home/Home';
 
 import './App.css';
 
@@ -41,10 +42,11 @@ function App() {
       <Header />
 
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" Component={isAuth(Logout)} />
         <Route path="/register" Component={Register} />
-        <Route path="/all-games" Component={isAuth(AllGames)} />
+        <Route path="/all-games" Component={AllGames} />
       </Routes>
 
       </AuthContext.Provider>

@@ -1,18 +1,8 @@
 import { useEffect, useState } from 'react';
 import * as gameService from '../../services/gamesService'
 import GameCard from '../GameCard/GameCard';
-import style from './AllGames.module.css'
-
-interface Game {
-    id: string;
-    _ownerId: string;
-    title: string;
-    category: string;
-    maxLevel: string;
-    imageUrl: string;
-    summary: string;
-    _createdOn: number;
-  }
+import style from './AllGames.module.css';
+import {Game} from '../../interfaces/game.interface'
 
 const AllGames = () => {
     const [games, setGames] = useState<Game[]>([]);

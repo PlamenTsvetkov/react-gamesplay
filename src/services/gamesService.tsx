@@ -5,3 +5,11 @@ export const getAll = () =>{
     .then(res => res.json())
     .catch(error => console.log(error))
 };
+
+export const getHomeGame = () =>{
+    const currentUrl = "http://localhost:5000/games?_sort=_createdOn&_order=desc"
+    return fetch(currentUrl)
+    .then(res => res.json())
+    .catch(error => console.log(error))
+};
+
