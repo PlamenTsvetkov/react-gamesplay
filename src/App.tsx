@@ -1,24 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { auth } from './utils/firebase';
+import Header from './components/Header/Header';
+import Login from './components/Login/Login';
+import AuthContext, { AuthContextType } from './contexts/AuthContext';
+import { User } from 'firebase/auth';
+import isAuth from './hoc/isAuth';
+import Logout from './components/Logout/Logout';
+import Register from './components/Register/Register';
+
 import './App.css';
 
 function App() {
+
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser as User);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const authInfo: AuthContextType = {
+  isAuthenticated: Boolean(user),
+  username: user?.email || null
+};
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+        <AuthContext.Provider value={authInfo}>
+      <Header />
+
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" Component={isAuth(Logout)} />
+        <Route path="/register" Component={Register} />
+      </Routes>
+
+      </AuthContext.Provider>
     </div>
   );
 }
