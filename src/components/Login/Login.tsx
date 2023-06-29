@@ -9,7 +9,7 @@ const Login: React.FC = () => {
 
 const onLoginSubmitHandler= (e: React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
-    const email = (e.target as HTMLFormElement).username.value;
+    const email = (e.target as HTMLFormElement).email.value;
     const password = (e.target as HTMLFormElement).password.value;
 
     auth.signInWithEmailAndPassword(email, password)
@@ -31,7 +31,7 @@ const onLoginSubmitHandler= (e: React.FormEvent<HTMLFormElement>) =>{
       <div className={style.container}> 
         <div className={style["brand-logo"]}></div> 
         <h1 className={style["login-heading"]}>Login</h1> 
-        <label htmlFor="username" className={style.label}>Email:</label> 
+        <label htmlFor="email" className={style.label}>Email:</label> 
         <input type="email" id="email" name="email" placeholder="Sokka@gmail.com" className={style.input} />
         <label htmlFor="password" className={style.label}>Password:</label> 
         <input type="password" id="password" name="password" className={style.input} /> 
