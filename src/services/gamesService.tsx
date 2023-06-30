@@ -13,3 +13,9 @@ export const getHomeGame = () =>{
     .catch(error => console.log(error))
 };
 
+export const getOne = (gameId:string | undefined) =>{
+    return fetch(`${url}/${gameId}`)
+    .then(res => res.json())
+    .catch(error => console.log(error))
+};
+

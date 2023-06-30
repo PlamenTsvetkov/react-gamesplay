@@ -10,6 +10,7 @@ import Logout from './components/Logout/Logout';
 import Register from './components/Register/Register';
 import AllGames from './components/AllGames/AllGames';
 import Home from './components/Home/Home';
+import Details from './components/Details/Details';
 
 import './App.css';
 
@@ -33,7 +34,8 @@ function App() {
 
   const authInfo: AuthContextType = {
   isAuthenticated: Boolean(user),
-  username: user?.email || null
+  username: user?.email || null,
+  userId: user?.uid || null
 };
 
   return (
@@ -47,6 +49,7 @@ function App() {
         <Route path="/logout" Component={isAuth(Logout)} />
         <Route path="/register" Component={Register} />
         <Route path="/all-games" Component={AllGames} />
+        <Route path="/details/:gameId" Component={Details} />
       </Routes>
 
       </AuthContext.Provider>
