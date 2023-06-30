@@ -3,7 +3,7 @@ import {auth} from '../../utils/firebase';
 import {  useNavigate } from 'react-router-dom';
 import style from './Login.module.css';
 
-const Login: React.FC = () => {
+const Login = () => {
 
     const navigate = useNavigate();
 

@@ -17,6 +17,8 @@ const Details = () => {
             .then((res: Game) => setGame(res));
     }, [gameId]);
 
+    
+
     const isOwner = userId && game?._ownerId == userId;
     return (
         <section id={style["game-details"]}>
@@ -40,7 +42,7 @@ const Details = () => {
                     // Logged-in users
                     <div className={style.buttons}>
                         <Link to= {`/edit/${gameId}`} className={style.button}>Edit</Link>
-                        <Link to="" className={style.button}>Delete</Link>
+                        <Link to={`/delete/${gameId}`} className={style.button}>Delete</Link>
                     </div>
                 ) : (
                     // Guest users

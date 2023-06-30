@@ -13,6 +13,7 @@ import Home from './components/Home/Home';
 import Details from './components/Details/Details';
 import CreateGame from './components/CreateGame/CreateGame';
 import EditGame from './components/EditGame/EditGame';
+import Delete from './components/Delete/Detele';
 
 import './App.css';
 
@@ -35,26 +36,27 @@ function App() {
   }, []);
 
   const authInfo: AuthContextType = {
-  isAuthenticated: Boolean(user),
-  username: user?.email || null,
-  userId: user?.uid || null
-};
+    isAuthenticated: Boolean(user),
+    username: user?.email || null,
+    userId: user?.uid || null
+  };
 
   return (
     <div className="container">
-        <AuthContext.Provider value={authInfo}>
-      <Header />
+      <AuthContext.Provider value={authInfo}>
+        <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" Component={isAuth(Logout)} />
-        <Route path="/register" Component={Register} />
-        <Route path="/all-games" Component={AllGames} />
-        <Route path="/details/:gameId" Component={Details} />
-        <Route path="/create" Component={isAuth(CreateGame)} />
-        <Route path="/edit/:gameId" Component={isAuth(EditGame)} />
-      </Routes>
+        <Routes>
+          <Route path="/" Component={Home} />
+          <Route path="/login" Component={Login} />
+          <Route path="/logout" Component={isAuth(Logout)} />
+          <Route path="/register" Component={Register} />
+          <Route path="/all-games" Component={AllGames} />
+          <Route path="/details/:gameId" Component={Details} />
+          <Route path="/create" Component={isAuth(CreateGame)} />
+          <Route path="/edit/:gameId" Component={isAuth(EditGame)} />
+          <Route path="/delete/:gameId" Component={isAuth(Delete)} />
+        </Routes>
 
       </AuthContext.Provider>
     </div>

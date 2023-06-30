@@ -10,7 +10,6 @@ const EditGame = () => {
     const { gameId } = useParams<RouteParams>();
     const navigate = useNavigate();
 
-    console.log(gameId);
     let [game, setGame] = useState<Game | null>(null);
 
     const [title, setTitle] = useState('');
@@ -40,8 +39,7 @@ const EditGame = () => {
         updatedGame.maxLevel = maxLevel;
         updatedGame.imageUrl = imageUrl;
         updatedGame.summary = summary;
-        
-        console.log(updatedGame)
+
         gameService.update(gameId as string, updatedGame as Game)
         .then(()=>{
             navigate(`/details/${gameId}`);

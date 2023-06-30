@@ -40,3 +40,13 @@ export const update = (gameId : string , game : Game) =>{
     });
 };
 
+export const del = (gameId:string | undefined) =>{
+    return fetch(`${url}/${gameId}`,{
+        method:'DELETE',
+        headers:{
+            'Content-Type': 'application/json',
+        }
+    })
+    .catch(error => console.log(error));
+};
+

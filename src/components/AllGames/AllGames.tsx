@@ -20,7 +20,7 @@ const AllGames = () => {
       ) : (
         games.map((p) => (
           <GameCard
-            key={p.id} // Заменете с уникален идентификаторен ключ
+            key={p.id} 
             imageUrl={p.imageUrl}
             category={p.category}
             title={p.title}

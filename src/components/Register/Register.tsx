@@ -3,7 +3,7 @@ import {auth} from '../../utils/firebase';
 import style from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 
-const Register: React.FC = () => {
+const Register = () => {
     const navigate = useNavigate();
 
     const onRegisterSubmitHandler= (e: React.FormEvent<HTMLFormElement>) =>{
