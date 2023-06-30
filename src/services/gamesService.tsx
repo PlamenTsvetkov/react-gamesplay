@@ -30,3 +30,13 @@ export const create = (game :Game) =>{
     });
 };
 
+export const update = (gameId : string , game : Game) =>{
+    return fetch(`${url}/${gameId}`,{
+        method:'PUT',
+        headers:{
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(game)
+    });
+};
+

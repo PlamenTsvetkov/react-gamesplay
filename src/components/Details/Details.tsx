@@ -1,12 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import * as gameService from '../../services/gamesService';
-import {Game} from '../../interfaces/game.interface';
-import {RouteParams} from '../../interfaces/rauteParams.interface';
+import { Game } from '../../interfaces/game.interface';
+import { RouteParams } from '../../interfaces/rauteParams.interface';
 import style from './Details.module.css';
 import AuthContext, { AuthContextType } from '../../contexts/AuthContext';
 
-const Details = () =>{
+const Details = () => {
     const { userId }: AuthContextType = useContext(AuthContext);
     const { gameId } = useParams<RouteParams>();
 
@@ -18,9 +18,9 @@ const Details = () =>{
     }, [gameId]);
 
     const isOwner = userId && game?._ownerId == userId;
-    return(
-<section id={style["game-details"]}>
- <h1>Game Details</h1>
+    return (
+        <section id={style["game-details"]}>
+            <h1>Game Details</h1>
             <div className={style["info-section"]}>
 
                 <div className={style["game-header"]}>
@@ -31,22 +31,22 @@ const Details = () =>{
                 </div>
 
                 <p className={style.text}>
-                {game?.summary}
+                    {game?.summary}
                 </p>
 
 
                 {/* {/* <!-- Edit/Delete buttons ( Only for creator of this game )  --> */}
-                    {isOwner ? (
+                {isOwner ? (
                     // Logged-in users
                     <div className={style.buttons}>
-                    <Link  to="/edit/${item._id}" className={style.button}>Edit</Link>
-                    <Link  to="" className={style.button}>Delete</Link>
-                </div>
+                        <Link to= {`/edit/${gameId}`} className={style.button}>Edit</Link>
+                        <Link to="" className={style.button}>Delete</Link>
+                    </div>
                 ) : (
                     // Guest users
                     null
                 )}
-              
+
             </div>
 
         </section>
