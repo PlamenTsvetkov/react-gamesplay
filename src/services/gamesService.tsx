@@ -1,3 +1,4 @@
+import {Game} from '../interfaces/game.interface';
 const url = 'http://localhost:5000/games';
 
 export const getAll = () =>{
@@ -17,5 +18,15 @@ export const getOne = (gameId:string | undefined) =>{
     return fetch(`${url}/${gameId}`)
     .then(res => res.json())
     .catch(error => console.log(error))
+};
+
+export const create = (game :Game) =>{
+    return fetch(url,{
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(game)
+    });
 };
 

@@ -11,6 +11,7 @@ import Register from './components/Register/Register';
 import AllGames from './components/AllGames/AllGames';
 import Home from './components/Home/Home';
 import Details from './components/Details/Details';
+import CreateGame from './components/CreateGame/CreateGame';
 
 import './App.css';
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/register" Component={Register} />
         <Route path="/all-games" Component={AllGames} />
         <Route path="/details/:gameId" Component={Details} />
+        <Route path="/create" Component={isAuth(CreateGame)} />
       </Routes>
 
       </AuthContext.Provider>
