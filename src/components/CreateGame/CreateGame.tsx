@@ -1,45 +1,80 @@
-import {useContext, useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {Game} from '../../interfaces/game.interface';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Game } from '../../interfaces/game.interface';
 import * as gameService from '../../services/gamesService';
 import AuthContext, { AuthContextType } from '../../contexts/AuthContext';
-import style from './CreateGame.module.css'
+import style from './CreateGame.module.css';
+import { useFormik } from 'formik';
 
-const CreateGame = () =>{
-    const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('');
-  const [maxLevel, setMaxLevel] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [summary, setSummary] = useState('');
-  
+interface FormValues {
+  title: string;
+  category: string;
+  maxLevel: string;
+  imageUrl: string;
+  summary: string;
+}
+
+const initialValues = {
+
+}
+
+const CreateGame = () => {
   const { userId }: AuthContextType = useContext(AuthContext);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const onCreateGameSubmitHandler=(e: React.FormEvent<HTMLFormElement>)=>{
-        e.preventDefault();
-const newGame: Game = {
-      id: '',
-      _ownerId: userId as string,
-      title,
-      category,
-      maxLevel,
-      imageUrl,
-      summary,
-      _createdOn: Date.now(),
-    };
+  const formik = useFormik<FormValues>({
+    initialValues: {
+      title: '',
+      category: '',
+      maxLevel: '',
+      imageUrl: '',
+      summary: ''
+    },
+    onSubmit: (values) => {
+      const newGame: Game = {
+        id: '',
+        _ownerId: userId as string,
+        title: values.title,
+        category: values.category,
+        maxLevel: values.maxLevel,
+        imageUrl: values.imageUrl,
+        summary: values.summary,
+        _createdOn: Date.now(),
+      };
 
-console.log(newGame);
+      gameService.create(newGame)
+        .then(() => {
+          navigate('/');
+        });
+    },
+    validate: (values) => {
+      let errors: Partial<FormValues> = {};
 
-    gameService.create(newGame)
-    .then(()=>{
-        navigate('/');
-    });
+      if (!values.title) {
+        errors.title = 'Required';
+      }
+      if (!values.category) {
+        errors.category = 'Required';
+      }
+      if (!values.maxLevel) {
+        errors.maxLevel = 'Required';
+      }
+      if (!values.imageUrl) {
+        errors.imageUrl = 'Required';
+      }
+      if (!values.summary) {
+        errors.summary = 'Required';
+      }
 
+
+      return errors;
     }
-    return(
-       <section id={style["create-page"]} className="auth">
-      <form onSubmit={onCreateGameSubmitHandler} id="create">
+  });
+
+  return (
+    <section id={style["create-page"]} className="auth">
+      <form onSubmit={formik.handleSubmit} id="create">
         <div className={style.container}>
           <h1>Create Game</h1>
           <label htmlFor="leg-title">Legendary title:</label>
@@ -48,9 +83,12 @@ console.log(newGame);
             id="title"
             name="title"
             placeholder="Enter game title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={`${formik.errors.title && formik.touched.title ? style.error : ''}`}
           />
+          {formik.errors.title && formik.touched.title && <div className={style["error-message"]}>{formik.errors.title}</div>}
 
           <label htmlFor="category">Category:</label>
           <input
@@ -58,9 +96,12 @@ console.log(newGame);
             id="category"
             name="category"
             placeholder="Enter game category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            value={formik.values.category}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={`${formik.errors.category && formik.touched.category ? style.error : ''}`}
           />
+          {formik.errors.category && formik.touched.category && <div className={style["error-message"]}>{formik.errors.category}</div>}
 
           <label htmlFor="levels">MaxLevel:</label>
           <input
@@ -69,9 +110,12 @@ console.log(newGame);
             name="maxLevel"
             min="1"
             placeholder="1"
-            value={maxLevel}
-            onChange={(e) => setMaxLevel(e.target.value)}
+            value={formik.values.maxLevel}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={`${formik.errors.maxLevel && formik.touched.maxLevel ? style.error : ''}`}
           />
+          {formik.errors.maxLevel && formik.touched.maxLevel && <div className={style["error-message"]}>{formik.errors.maxLevel}</div>}
 
           <label htmlFor="game-img">Image:</label>
           <input
@@ -79,22 +123,29 @@ console.log(newGame);
             id="imageUrl"
             name="imageUrl"
             placeholder="Upload a photo"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
+            value={formik.values.imageUrl}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={`${formik.errors.imageUrl && formik.touched.imageUrl ? style.error : ''}`}
           />
+          {formik.errors.imageUrl && formik.touched.imageUrl && <div className={style["error-message"]}>{formik.errors.imageUrl}</div>}
 
           <label htmlFor="summary">Summary:</label>
           <textarea
             name="summary"
             id="summary"
-            value={summary}
-            onChange={(e) => setSummary(e.target.value)}
+            value={formik.values.summary}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className={`${formik.errors.summary && formik.touched.summary ? style.error : ''}`}
           ></textarea>
+          {formik.errors.summary && formik.touched.summary && <div className={style["error-message"]}>{formik.errors.summary}</div>}
+
           <input className={`${style.btn} ${style.submit}`} type="submit" value="Create Game" />
         </div>
       </form>
     </section>
-    );
+  );
 }
 
 export default CreateGame;

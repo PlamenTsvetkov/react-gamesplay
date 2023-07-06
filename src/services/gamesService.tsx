@@ -1,4 +1,5 @@
 import {Game} from '../interfaces/game.interface';
+// const url = 'http://localhost:5000/games';
 const url = 'http://localhost:5000/games';
 
 export const getAll = () =>{
@@ -8,6 +9,7 @@ export const getAll = () =>{
 };
 
 export const getHomeGame = () =>{
+    // const currentUrl = "http://localhost:5000/games?_sort=_createdOn&_order=desc"
     const currentUrl = "http://localhost:5000/games?_sort=_createdOn&_order=desc"
     return fetch(currentUrl)
     .then(res => res.json())
