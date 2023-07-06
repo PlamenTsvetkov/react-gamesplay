@@ -5,6 +5,7 @@ import * as gameService from '../../services/gamesService';
 import AuthContext, { AuthContextType } from '../../contexts/AuthContext';
 import style from './CreateGame.module.css';
 import { useFormik } from 'formik';
+import * as Yup from 'yup'
 
 interface FormValues {
   title: string;
@@ -14,9 +15,13 @@ interface FormValues {
   summary: string;
 }
 
-const initialValues = {
-
-}
+const validationSchema = Yup.object({
+  title: Yup.string().required('Required!').min(3, 'Title must be at least 3 characters').max(50, 'Title can be maximum 50 characters'),
+  category: Yup.string().required('Required!'),
+  maxLevel: Yup.number().min(1, 'MaxLevel must be at least 1').max(100, 'MaxLevel can be maximum 100'),
+  imageUrl: Yup.string().required('Required!').url('Need to be url!'),
+  summary: Yup.string().required('Required!').min(3, 'Summary must be at least 3 characters').max(50, 'Summary can be maximum 50 characters'),
+})
 
 const CreateGame = () => {
   const { userId }: AuthContextType = useContext(AuthContext);
@@ -48,28 +53,7 @@ const CreateGame = () => {
           navigate('/');
         });
     },
-    validate: (values) => {
-      let errors: Partial<FormValues> = {};
-
-      if (!values.title) {
-        errors.title = 'Required';
-      }
-      if (!values.category) {
-        errors.category = 'Required';
-      }
-      if (!values.maxLevel) {
-        errors.maxLevel = 'Required';
-      }
-      if (!values.imageUrl) {
-        errors.imageUrl = 'Required';
-      }
-      if (!values.summary) {
-        errors.summary = 'Required';
-      }
-
-
-      return errors;
-    }
+    validationSchema
   });
 
   return (
