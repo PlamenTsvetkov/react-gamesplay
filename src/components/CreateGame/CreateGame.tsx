@@ -16,7 +16,13 @@ interface FormValues {
   summary: string;
 }
 
-const initialValues = {} as FormValues;
+const initialValues: FormValues = {
+  title: '',
+  category: '',
+  maxLevel: '',
+  imageUrl: '',
+  summary: ''
+};
 
 const validationSchema = Yup.object({
   title: Yup.string().required('Required!').min(3, 'Title must be at least 3 characters').max(50, 'Title can be maximum 50 characters'),
@@ -25,17 +31,13 @@ const validationSchema = Yup.object({
   imageUrl: Yup.string().required('Required!').url('Need to be url!'),
   summary: Yup.string().required('Required!').min(3, 'Summary must be at least 3 characters').max(500, 'Summary can be maximum 500 characters'),
 })
-
-
-
-
 const CreateGame = () => {
   const { userId }: AuthContextType = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const onSubmit = (values: FormValues) => {
-    console.log(values)
+  
     const newGame: Game = {
       id: '',
       _ownerId: userId as string,
@@ -56,8 +58,9 @@ const CreateGame = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}>
-      {({ errors, touched }) => (
+      onSubmit={onSubmit}
+      validateOnChange={false}>
+      {({ errors, touched , isSubmitting}) => (
         <section id={style["create-page"]} className="auth">
           <Form id="create">
             <div className={style.container}>
@@ -112,7 +115,8 @@ const CreateGame = () => {
               ></Field>
               <ErrorMessage name="summary" component={ErrorText}/>
 
-              <Field className={`${style.btn} ${style.submit}`} type="submit" value="Create Game" />
+              <input className={`${style.btn} ${style.submit}`} disabled={isSubmitting} type="submit" value="Create Game" />
+             
             </div>
           </Form>
         </section>

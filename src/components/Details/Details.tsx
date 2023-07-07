@@ -5,6 +5,8 @@ import { Game } from '../../interfaces/game.interface';
 import { RouteParams } from '../../interfaces/rauteParams.interface';
 import style from './Details.module.css';
 import AuthContext, { AuthContextType } from '../../contexts/AuthContext';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const Details = () => {
     const { userId }: AuthContextType = useContext(AuthContext);
@@ -26,6 +28,25 @@ const Details = () => {
           .catch((error) => {
             // Handle delete error
           });
+      };
+
+      const showConfirmationDialog = () => {
+        confirmAlert({
+          title: 'Confirm Delete',
+          message: 'Are you sure you want to delete this game?',
+          buttons: [
+            {
+                label: 'Yes',
+                onClick: () => handleDelete(gameId as string),
+            },
+            {
+              label: 'No',
+              onClick: () => {
+                // Handle 'No' button click
+              }
+            },
+          ],
+        });
       };
 
     const isOwner = userId && game?._ownerId == userId;
@@ -51,7 +72,7 @@ const Details = () => {
                     // Logged-in users
                     <div className={style.buttons}>
                         <Link to= {`/edit/${gameId}`} className={style.button}>Edit</Link>
-                        <button onClick={() => gameId && handleDelete(gameId)} className={style.button}>Delete</button>
+                        <button onClick={showConfirmationDialog} className={style.button}>Delete</button>
                     </div>
                 ) : (
                     // Guest users
