@@ -55,7 +55,6 @@ function App() {
           <Route path="/details/:gameId" Component={Details} />
           <Route path="/create" Component={isAuth(CreateGame)} />
           <Route path="/edit/:gameId" Component={isAuth(EditGame)} />
-          <Route path="/delete/:gameId" Component={isAuth(Delete)} />
         </Routes>
 
       </AuthContext.Provider>

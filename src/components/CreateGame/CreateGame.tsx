@@ -35,6 +35,7 @@ const CreateGame = () => {
   const navigate = useNavigate();
 
   const onSubmit = (values: FormValues) => {
+    console.log(values)
     const newGame: Game = {
       id: '',
       _ownerId: userId as string,

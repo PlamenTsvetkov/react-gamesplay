@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import * as gameService from '../../services/gamesService';
 import { Game } from '../../interfaces/game.interface';
@@ -9,6 +9,7 @@ import AuthContext, { AuthContextType } from '../../contexts/AuthContext';
 const Details = () => {
     const { userId }: AuthContextType = useContext(AuthContext);
     const { gameId } = useParams<RouteParams>();
+    const navigate = useNavigate();
 
     let [game, setGame] = useState<Game | null>(null);
 
@@ -17,7 +18,15 @@ const Details = () => {
             .then((res: Game) => setGame(res));
     }, [gameId]);
 
-    
+    const handleDelete = (gameId: string) => {
+        gameService.del(gameId)
+          .then(() => {
+            navigate('/');
+          })
+          .catch((error) => {
+            // Handle delete error
+          });
+      };
 
     const isOwner = userId && game?._ownerId == userId;
     return (
@@ -42,7 +51,7 @@ const Details = () => {
                     // Logged-in users
                     <div className={style.buttons}>
                         <Link to= {`/edit/${gameId}`} className={style.button}>Edit</Link>
-                        <Link to={`/delete/${gameId}`} className={style.button}>Delete</Link>
+                        <button onClick={() => gameId && handleDelete(gameId)} className={style.button}>Delete</button>
                     </div>
                 ) : (
                     // Guest users
