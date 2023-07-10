@@ -2,6 +2,7 @@ import Input, { InputProps } from "../Input/Input";
 import Textarea from '../Textarea/Textarea';
 import Select from '../Select/Select';
 import RadioButtons from "../RadioButtons/RadioButtons";
+import CheckboxGroup from "../CheckboxGroup/CheckboxGroup";
 
 
 interface FormikControlProps extends InputProps {
@@ -25,6 +26,7 @@ const FormikContol = (props: FormikControlProps) => {
         case 'radio':
             return <RadioButtons {...rest}/>
         case 'checkbox':
+            return <CheckboxGroup {...rest}/>
         case 'date':
         default: return null;
     }

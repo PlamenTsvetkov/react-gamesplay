@@ -1,0 +1,14 @@
+.checkbox-buttons-container {
+    display: flex;
+  }
+  
+  .checkbox-button {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .checkbox-button input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
