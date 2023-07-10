@@ -1,5 +1,6 @@
 import Input, { InputProps } from "../Input/Input";
-import Textarea from '../Textarea/Textarea'
+import Textarea from '../Textarea/Textarea';
+import Select from '../Select/Select';
 
 
 interface FormikControlProps extends InputProps {
@@ -7,6 +8,7 @@ interface FormikControlProps extends InputProps {
     inputType?: string;
     label: string;
     name: string;
+    options?: { key: string ; value: string;  }[];
 }
 
 const FormikContol = (props: FormikControlProps) => {
@@ -18,6 +20,7 @@ const FormikContol = (props: FormikControlProps) => {
         case 'textarea':
             return <Textarea {...rest}/>
         case 'select':
+            return <Select {...rest}/>
         case 'radio':
         case 'checkbox':
         case 'date':
