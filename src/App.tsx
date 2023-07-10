@@ -13,6 +13,7 @@ import Home from './components/Home/Home';
 import Details from './components/Details/Details';
 import CreateGame from './components/CreateGame/CreateGame';
 import EditGame from './components/EditGame/EditGame';
+import FormikContainer from './components/Formik/FormikContainer/FormikContainer';
 
 import './App.css';
 
@@ -54,6 +55,7 @@ function App() {
           <Route path="/details/:gameId" Component={Details} />
           <Route path="/create" Component={isAuth(CreateGame)} />
           <Route path="/edit/:gameId" Component={isAuth(EditGame)} />
+          <Route path="/formik" Component={FormikContainer} />
         </Routes>
 
       </AuthContext.Provider>
