@@ -5,28 +5,35 @@ import styles from './FormikContainer.module.css'
 
 interface FormValues {
     email: string;
-    options?: { key: string ; value: string;  }[];
+    options?: { key: string; value: string; }[];
 }
 
 const FormikContainer = () => {
-    const dropdownOptions=[
-        {key:'Select an option', value:'Select an option'},
-        {key:'1', value:'male'},
-        {key:'2', value:'famale'},
-        {key:'3', value:'other'},
+    const dropdownOptions = [
+        { key: 'Select an option', value: 'Select an option' },
+        { key: '1', value: 'male' },
+        { key: '2', value: 'famale' },
+        { key: '3', value: 'other' },
+    ]
+    const radioOptions = [
+        { key: '1', value: 'male' },
+        { key: '2', value: 'famale' },
+        { key: '3', value: 'other' },
     ]
     const initialValues = {
         email: '',
         description: '',
-        select:''
+        select: '',
+        radioOption: '',
     };
     const validationSchema = Yup.object({
         email: Yup.string().required('Required'),
         description: Yup.string().required('Required'),
+        radioOption: Yup.string().required('Required'),
         select: Yup.string()
-        .notOneOf(['Select an option'], 'Please select an option')
-        .required('Required'),
-       
+            .notOneOf(['Select an option'], 'Please select an option')
+            .required('Required'),
+
     });
 
     const onSubmit = (values: FormValues) => console.log(values)
@@ -57,15 +64,26 @@ const FormikContainer = () => {
                                 form={formik}
                                 meta={formik.getFieldMeta('description')}
                             />
-                             <FormikContol
+                            <FormikContol
                                 control='select'
                                 label='Gender'
                                 name='select'
                                 options={dropdownOptions}
-                                field={formik.getFieldProps('description')}
+                                field={formik.getFieldProps('select')}
                                 form={formik}
-                                meta={formik.getFieldMeta('description')}
+                                meta={formik.getFieldMeta('select')}
                             />
+
+                            <FormikContol
+                                control='radio'
+                                label='Gender 2'
+                                name='radioOption'
+                                options={radioOptions}
+                                field={formik.getFieldProps('radioOption')}
+                                form={formik}
+                                meta={formik.getFieldMeta('radioOption')}
+                            />
+
                             <input className={`${styles.btn} ${styles.submit}`} type="submit" value="Proba !" />
                         </Form>
                     </div>
