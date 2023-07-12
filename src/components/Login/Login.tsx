@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormikContol from '../Formik/FormikContol/FormikContol';
@@ -80,7 +80,7 @@ const Login = () => {
 
               <input type="submit" className={`${style.btn} ${style.submit}`} value="Login" />
               <p className={style.field}>
-                <span>If you don't have a profile click <a href="/register">here</a></span>
+                <span>If you don't have a profile click <Link to="/register">here</Link></span>
               </p>
             </div>
           </Form>
