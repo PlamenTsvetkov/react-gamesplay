@@ -16,22 +16,24 @@ interface FormValues {
   summary: string;
 }
 
-const initialValues: FormValues = {
-  title: '',
-  category: '',
-  maxLevel: '',
-  imageUrl: '',
-  summary: ''
-};
 
-const validationSchema = Yup.object({
-  title: Yup.string().required('Required!').min(3, 'Title must be at least 3 characters').max(50, 'Title can be maximum 50 characters'),
-  category: Yup.string().required('Required!'),
-  maxLevel: Yup.number().min(1, 'MaxLevel must be at least 1').max(100, 'MaxLevel can be maximum 100'),
-  imageUrl: Yup.string().required('Required!').url('Need to be url!'),
-  summary: Yup.string().required('Required!').min(3, 'Summary must be at least 3 characters').max(500, 'Summary can be maximum 500 characters'),
-})
 const CreateGame = () => {
+  const initialValues: FormValues = {
+    title: '',
+    category: '',
+    maxLevel: '',
+    imageUrl: '',
+    summary: ''
+  };
+  
+  const validationSchema = Yup.object({
+    title: Yup.string().required('Required!').min(3, 'Title must be at least 3 characters').max(50, 'Title can be maximum 50 characters'),
+    category: Yup.string().required('Required!'),
+    maxLevel: Yup.number().min(1, 'MaxLevel must be at least 1').max(100, 'MaxLevel can be maximum 100'),
+    imageUrl: Yup.string().required('Required!').url('Need to be url!'),
+    summary: Yup.string().required('Required!').min(3, 'Summary must be at least 3 characters').max(500, 'Summary can be maximum 500 characters'),
+  })
+  
   const { userId }: AuthContextType = useContext(AuthContext);
 
   const navigate = useNavigate();

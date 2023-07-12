@@ -12,6 +12,7 @@ interface FormikControlProps extends InputProps {
     label: string;
     name: string;
     options?: { key: string ; value: string;  }[];
+    placeholder?:string;
 }
 
 const FormikContol = (props: FormikControlProps) => {
