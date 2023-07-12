@@ -8,7 +8,7 @@ export interface RadioButtonsProps extends FieldProps {
   options?: { key: string; value: string }[];
 }
 
-const RadioButtons = ({ label, name, options, field, form, meta }: RadioButtonsProps) => {
+const RadioButtons = ({ label, name, options, field }: RadioButtonsProps) => {
   return (
     <>
       <label className={styles["radio-buttons-container"]}>{label}</label>
